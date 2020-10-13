@@ -19,6 +19,14 @@ def bgr_to_rgb(image):
     """
     return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
+def haarCascade():
+    hand_cascade = cv2.CascadeClassifier("hand.xml")
+    palm_cascade = cv2.CascadeClassifier("palm.xml")
+    hand = hand_cascade.detectMultiScale(gray, 1.3, 5)
+    for (x,y,w,h) in hand:
+        cv2.rectangle()
+    return
+
 def main():
     #setting the camera
     print("Ciao")
@@ -43,24 +51,29 @@ def main():
     while (cap.isOpened() & cap_video.isOpened()):
     # get the current frame
         ret_video, frame_video = cap_video.read()
+        ret_camera, frame_camera = cap.read()
+        if ret_video == False or ret_camera == False:
+            print("problems with video")
+            return
+        final = cv2.vconcat([frame_video, frame_camera])
+        imshow("Both", final)
+
+        """
         frame = grab_frame(cap)
         if img is None:
-            # convert it in RBG (for Matplotlib)
             img = plt.imshow(bgr_to_rgb(frame))
-            plt.axis("off")  # hide axis, ticks, ...
+            plt.axis("off")  
             plt.title("Camera Capture")
-            # show the plot!
             plt.show()
         else:
-            # set the current frame as the data to show
             img.set_data(bgr_to_rgb(frame))
-            # update the figure associated to the shown plot
             fig.canvas.draw()
-            plt.pause(1/30)  # pause: 30 frames per second
+            plt.pause(1/30) 
         if ret_video == True:
             cv2.imshow('frame', frame_video)
         else:
             break
+        """
 
     #releasing video
     cap.release()
