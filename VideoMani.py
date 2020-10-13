@@ -20,7 +20,7 @@ def bgr_to_rgb(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 def haarCascade(image, gray):
-    hand_cascade = cv2.CascadeClassifier("hand.xml")
+    hand_cascade = cv2.CascadeClassifier("hand_1.xml")
     palm_cascade = cv2.CascadeClassifier("palm.xml")
     hand = hand_cascade.detectMultiScale(gray, 1.3, 5)
     for (x,y,w,h) in hand:
