@@ -51,29 +51,24 @@ def main():
     while (cap.isOpened() & cap_video.isOpened()):
     # get the current frame
         ret_video, frame_video = cap_video.read()
-        ret_camera, frame_camera = cap.read()
-        if ret_video == False or ret_camera == False:
-            print("problems with video")
-            return
-        final = cv2.vconcat([frame_video, frame_camera])
-        imshow("Both", final)
-
-        """
         frame = grab_frame(cap)
         if img is None:
+            # convert it in RBG (for Matplotlib)
             img = plt.imshow(bgr_to_rgb(frame))
-            plt.axis("off")  
+            plt.axis("off")  # hide axis, ticks, ...
             plt.title("Camera Capture")
+            # show the plot!
             plt.show()
         else:
+            # set the current frame as the data to show
             img.set_data(bgr_to_rgb(frame))
+            # update the figure associated to the shown plot
             fig.canvas.draw()
-            plt.pause(1/30) 
+            plt.pause(1/30)  # pause: 30 frames per second
         if ret_video == True:
             cv2.imshow('frame', frame_video)
         else:
             break
-        """
 
     #releasing video
     cap.release()
